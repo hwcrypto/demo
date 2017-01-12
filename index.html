@@ -3,10 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>hwcrypto.js</title>
-  <script src="gitversion.js"></script>
-  <script src="hwcrypto-legacy.js"></script>
-  <script src="hwcrypto.js"></script>
-  <script src="js/dist/jquery.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/hwcrypto/hwcrypto.js"></script>
   <script src="hex2base.js"></script>
   <style type="text/css">
     body {font-family: Georgia, serif;}
@@ -83,7 +81,6 @@
     });
   </script>
   <div id="scripton" style="display: none">
-   <!-- @@include('toolbar.html') -->
    <h1>sign()</h1>
    <p>You can get old NPAPI plugins from: <a href="https://installer.id.ee">installer.id.ee</a></p>
    <p><a href="https://chrome.google.com/webstore/detail/ckjefchnfjhjfedoccjbhjpbncimppeg">Install extension from chrome web store</a></p>
@@ -119,7 +116,7 @@
 
 
    <hr>
-   <script>document.write("<pre>This is sign.html " + publishedGitVersion + " running on\n" + navigator.userAgent + "</pre>");</script>
+   <script>document.write("<pre>This is a test page running on\n" + navigator.userAgent + "</pre>");</script>
    <div id="log" style="white-space: pre; font-family: monospace;"></div>
  </div>
 </body>

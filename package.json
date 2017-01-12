@@ -1,0 +1,10 @@
+{
+  "name": "hwcrypto-demo",
+  "version": "17.1.12",
+  "repository": "https://github.com/hwcrypto/demo",
+  "homepage": "https://hwcrypto.org/",
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "*"
+  }
+}
