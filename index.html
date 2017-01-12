@@ -7,7 +7,7 @@
   <script src="bower_components/hwcrypto/hwcrypto.js"></script>
   <script src="hex2base.js"></script>
   <style type="text/css">
-    body {font-family: Georgia, serif;}
+    body {font-family: Georgia, serif; margin: 2em;}
   </style>
   
   <script>
@@ -70,7 +70,11 @@
 </script>
 </head>
 <body>
-  <noscript><h1>Plase enable JavaScript!</h1></noscript>
+  <noscript>
+    <h1>Plase enable JavaScript!</h1>
+    <p><a href="http://enable-javascript.com">Instructions are available on
+    <b>enable-javascript.com</b></a></p>
+  </noscript>
   <script>
     $(document).ready(function() {
        $("#scripton").show();
@@ -111,12 +115,14 @@
      <input type="radio" name="backend" value="chrome">chrome-token-signing
    </li>
    </ul>
-   <p><button id="click1" onclick='sign();'>Click here to invoke <b>sign()</b></button></p>
-   <p><button id="click2" onclick='debug();'>Brief debug()</button></p>
-
+   <p>
+     <button id="click1" onclick='sign();'><code>hwcrypto<b>.sign()</b></code></button>
+     (This asks the user for a certificate via <code>hwcrypto.getCertificate()</code> and uses it to sign a hash specified above)
+   </p>
+   <p><button id="click2" onclick='debug();'><code>hwcrypto<b>.debug()</b></code></button> | <button id="click3" onclick="document.getElementById('log').innerHTML=''">Clear log</button></p>
 
    <hr>
-   <script>document.write("<pre>This is a test page running on\n" + navigator.userAgent + "</pre>");</script>
+   <script>document.write("<pre>This test page is running on\n" + navigator.userAgent + "</pre>");</script>
    <div id="log" style="white-space: pre; font-family: monospace;"></div>
  </div>
 </body>
