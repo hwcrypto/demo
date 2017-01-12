@@ -9,7 +9,7 @@
   <style type="text/css">
     body {font-family: Georgia, serif; margin: 2em;}
   </style>
-  
+
   <script>
     var hashes = {};
     hashes['SHA-1'] = 'c33df55b8aee82b5018130f61a9199f6a9d5d385';
@@ -20,53 +20,53 @@
     hashes['SHA-192'] = 'ad41e82bcff23839dc0d9683d46fbae0be3dfcbbb1b49c70';
 
     function log_text(s) {
-      var d = document.createElement("div");
-      d.innerHTML = s;
-      document.getElementById('log').appendChild(d);
+        var d = document.createElement("div");
+        d.innerHTML = s;
+        document.getElementById('log').appendChild(d);
     }
 
     function debug() {
-    	window.hwcrypto.debug().then(function(response) {log_text("Debug: " + response);});
+        window.hwcrypto.debug().then(function(response) {log_text("Debug: " + response);});
     }
+
     function sign() {
-    // Clear log
-    document.getElementById('log').innerHTML = '';
-    // Timestamp
-    log_text("sign() clicked on " + new Date().toUTCString());
-    // Select hash
-    var hashtype = $("input[name=hash]:checked").val();
-    // Set backend if asked
-    var backend =  $("input[name=backend]:checked").val()
-    // get language
-    var lang = $("input[name=lang]:checked").val();
-    if (!window.hwcrypto.use(backend)) {
-      log_text("Selecting backend failed.");
+        // Clear log
+        document.getElementById('log').innerHTML = '';
+        // Timestamp
+        log_text("sign() clicked on " + new Date().toUTCString());
+        // Select hash
+        var hashtype = $("input[name=hash]:checked").val();
+        // Set backend if asked
+        var backend =  $("input[name=backend]:checked").val()
+        // get language
+        var lang = $("input[name=lang]:checked").val();
+        if (!window.hwcrypto.use(backend)) {
+          log_text("Selecting backend failed.");
+        }
+
+        var hash = $("#hashvalue").val();
+        log_text("Signing " + hashtype + ": " + hash);
+        // debug
+        window.hwcrypto.debug().then(function(response) {
+          log_text("Debug: " + response);
+        }, function(err) {
+            log_text("debug() failed: " + err);
+            return;
+        });
+
+        // Sign
+        window.hwcrypto.getCertificate({lang: lang}).then(function(response) {
+            var cert = response;
+            log_text("Using certificate:\n" + hexToPem(response.hex));
+            window.hwcrypto.sign(cert, {type: hashtype, hex: hash}, {lang: lang}).then(function(response) {
+                log_text("Generated signature:\n" + response.hex.match(/.{1,64}/g).join("\n"));
+            }, function(err) {
+                log_text("sign() failed: " + err);
+            });
+        }, function(err) {
+            log_text("getCertificate() failed: " + err);
+        });
     }
-
-   var hash = $("#hashvalue").val();
-   log_text("Signing " + hashtype + ": " + hash);
-    // debug
-    window.hwcrypto.debug().then(function(response) {
-      log_text("Debug: " + response);
-    }, function(err) {
-      log_text("debug() failed: " + err);
-      return;
-    });
-    // Sign
-    window.hwcrypto.getCertificate({lang: lang}).then(function(response) {
-      var cert = response;
-      log_text("Using certificate:\n" + hexToPem(response.hex));
-      window.hwcrypto.sign(cert, {type: hashtype, hex: hash}, {lang: lang}).then(function(response) {
-        log_text("Generated signature:\n" + response.hex.match(/.{1,64}/g).join("\n"));
-      }, function(err) {
-        log_text("sign() failed: " + err);
-      });
-    }, function(err) {
-      log_text("getCertificate() failed: " + err);
-    });
-  }
-
-
 </script>
 </head>
 <body>
@@ -85,10 +85,13 @@
     });
   </script>
   <div id="scripton" style="display: none">
-   <h1>sign()</h1>
-   <p>You can get old NPAPI plugins from: <a href="https://installer.id.ee">installer.id.ee</a></p>
-   <p><a href="https://chrome.google.com/webstore/detail/ckjefchnfjhjfedoccjbhjpbncimppeg">Install extension from chrome web store</a></p>
+   <p>This is a
+     <b><script>document.write(window.location.protocol.substring(0, window.location.protocol.length-1).toUpperCase());</script></b> test page for
+     <a href="bower_components/hwcrypto/hwcrypto.js">hwcrypto.js</a> (<a href="https://github.com/hwcrypto/hwcrypto.js/wiki">more information</a>)
+     implementing <a href="https://github.com/hwcrypto/hwcrypto.js/wiki/ModernAPI">API v0.1</a>
+   </p>
 
+   <h1>sign()</h1>
    Choose parameters:
    <ul>
    <li><b>HASH</b>:
